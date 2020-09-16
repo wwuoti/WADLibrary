@@ -11,7 +11,7 @@ This library was created to be able to work with multi-window use cases compared
 ### System Requirements
 
 - Windows 10 PC
-- Python 3
+- Python 3.7
 - Robot Framework
 
 ### Install the package
