@@ -305,7 +305,7 @@ class Keywords:
 
     def click_child_recursively(self, *args, button='left', session_id=None):
         """
-        Finds first child for specified chain of elements.
+        Clicks first child for specified chain of elements.
 
         All positional arguments are given in the format "locator_type:locator". The element locators
         have to be given in a top-down order, meaning that the topmost element in the hierarchy is
@@ -314,6 +314,7 @@ class Keywords:
         Arguments detailed:
         | =Argument=  | =Input=                                                       |
         | *args       | All positional arguments, interpreted as locator_type:locator |
+        | button      | Mouse button used                                             |
         | session_id  | Session where all elements are searched from                  |
 
         | =Return=    | =Output=                                                      |
