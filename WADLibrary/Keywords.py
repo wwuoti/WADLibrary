@@ -305,7 +305,7 @@ class Keywords:
 
     def click_child_recursively(self, *args, button='left', session_id=None):
         """
-        Finds first child for specified chain of elements.
+        Clicks first child for specified chain of elements.
 
         All positional arguments are given in the format "locator_type:locator". The element locators
         have to be given in a top-down order, meaning that the topmost element in the hierarchy is
@@ -314,6 +314,7 @@ class Keywords:
         Arguments detailed:
         | =Argument=  | =Input=                                                       |
         | *args       | All positional arguments, interpreted as locator_type:locator |
+        | button      | Mouse button used                                             |
         | session_id  | Session where all elements are searched from                  |
 
         | =Return=    | =Output=                                                      |
@@ -350,6 +351,53 @@ class Keywords:
         elem = children[index]['ELEMENT']
         self._move_to_element(elem, session_id)
         self._mouse_click(button, session_id)
+
+    def double_click_child_recursively(self, *args, session_id=None):
+        """
+        Double clicks first child for specified chain of elements.
+
+        All positional arguments are given in the format "locator_type:locator". The element locators
+        have to be given in a top-down order, meaning that the topmost element in the hierarchy is
+        given as the first element.
+
+        Arguments detailed:
+        | =Argument=  | =Input=                                                       |
+        | *args       | All positional arguments, interpreted as locator_type:locator |
+        | session_id  | Session where all elements are searched from                  |
+
+        | =Return=    | =Output=                                                      |
+        | None        | None                                                          |
+        """
+        if session_id is None:
+            session_id = self.get_current_session_id()
+        elem = self.find_child_element(*args, session_id=session_id)
+        self._move_to_element(elem, session_id)
+        self.double_click(session_id)
+
+    def double_click_ith_child_element(self, *args, index=0, session_id=None):
+
+        """
+        Double clicks the Ith child for a specified chain of elements.
+
+        All positional arguments are given in the format "locator_type:locator". The element locators
+        have to be given in a top-down order, meaning that the topmost element in the hierarchy is
+        given as the first element. When the last child element in the chain is reached, its children
+        are iterated through and the one corresponding to the specified index is clicked.
+
+        | =Argument=  | =Input=                                                               |
+        | *args       | All positional arguments, interpreted as locator_type:locator         |
+        | index       | The index of the child element to be clicked (indexing starts from 0) |
+        | session_id  | Session where all elements are searched from                          |
+
+        | =Return=    | =Output=                                                              |
+        | None        | None                                                                  |
+        """
+        if session_id is None:
+            session_id = self.get_current_session_id()
+        children = self.find_element_children(*args, session_id=session_id)
+        elem = children[index]['ELEMENT']
+        self._move_to_element(elem, session_id)
+        self.double_click(session_id)
 
     def double_click(self, session_id=None):
         """Double clicks the left mouse button.
