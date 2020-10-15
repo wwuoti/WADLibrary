@@ -11,7 +11,7 @@ class Driver:
         self.driver_path = driver_path
 
     def set_up_driver(self, path=None):
-        """Starts the Windows Application Driver as a detached process.
+        """Starts the Windows Application Driver as a subprocess.
 
         Arguments detailed:
         | =Argument= | =Input=                                |
