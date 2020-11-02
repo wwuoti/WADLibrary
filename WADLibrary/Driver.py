@@ -11,7 +11,7 @@ class Driver:
         self.driver_path = driver_path
 
     def set_up_driver(self, path=None):
-        """Starts the Windows Application Driver as a detached process.
+        """Starts the Windows Application Driver as a subprocess.
 
         Arguments detailed:
         | =Argument= | =Input=                                |
@@ -22,8 +22,10 @@ class Driver:
         """
         if path is None:
             path = self.driver_path
-        self.process = subprocess.Popen([path], shell=True, stdin=None, stdout=self.f, stderr=None, close_fds=False,
-                                        creationflags=8)  # subprocess.DETACHED_PROCESS
+        si = subprocess.STARTUPINFO()
+        si.dwFlags = subprocess.STARTF_USESHOWWINDOW
+        si.wShowWindow = 0
+        self.process = subprocess.Popen([path], startupinfo=si, creationflags=subprocess.CREATE_NEW_CONSOLE)
 
     def tear_down_driver(self):
         """Stops the Windows Application Driver."""
